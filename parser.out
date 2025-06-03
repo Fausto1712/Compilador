@@ -1,0 +1,2192 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAM ID SEMICOLON vars_opt funcs_opt MAIN body END
+Rule 2     vars_opt -> vars_list
+Rule 3     vars_opt -> empty
+Rule 4     vars_list -> vars
+Rule 5     vars_list -> vars_list vars
+Rule 6     vars -> VAR var_decl_list
+Rule 7     function_list -> function
+Rule 8     function_list -> function_list function
+Rule 9     funcs_opt -> function_list
+Rule 10    funcs_opt -> empty
+Rule 11    function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+Rule 12    param_list -> param
+Rule 13    param_list -> param_list COMMA param
+Rule 14    param_list -> empty
+Rule 15    param -> ID COLON type
+Rule 16    type -> VOID
+Rule 17    type -> INT
+Rule 18    type -> FLOAT
+Rule 19    type -> STRING
+Rule 20    type -> BOOL
+Rule 21    var_decl_list -> var_decl
+Rule 22    var_decl_list -> var_decl_list var_decl
+Rule 23    var_decl -> id_list COLON type SEMICOLON
+Rule 24    id_list -> ID
+Rule 25    id_list -> id_list COMMA ID
+Rule 26    body -> LBRACE statement_list RBRACE
+Rule 27    statement_list -> statement
+Rule 28    statement_list -> statement_list statement
+Rule 29    statement_list -> empty
+Rule 30    statement -> assign
+Rule 31    statement -> print_stmt
+Rule 32    statement -> condition
+Rule 33    statement -> cycle
+Rule 34    statement -> function_call SEMICOLON
+Rule 35    statement -> return_stmt
+Rule 36    statement -> if_stmt
+Rule 37    if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON
+Rule 38    if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON
+Rule 39    return_stmt -> RETURN expresion SEMICOLON
+Rule 40    return_stmt -> RETURN SEMICOLON
+Rule 41    print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON
+Rule 42    print_arguments -> expresion
+Rule 43    print_arguments -> print_arguments COMMA expresion
+Rule 44    assign -> ID ASSIGN_OP expresion SEMICOLON
+Rule 45    cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON
+Rule 46    condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON
+Rule 47    else_part -> ELSE body
+Rule 48    else_part -> empty
+Rule 49    exp -> termino
+Rule 50    exp -> exp OP_SUMA termino
+Rule 51    exp -> exp OP_RESTA termino
+Rule 52    termino -> factor
+Rule 53    termino -> termino OP_MULT factor
+Rule 54    termino -> termino OP_DIV factor
+Rule 55    factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+Rule 56    factor -> OP_SUMA atomic_factor
+Rule 57    factor -> OP_RESTA atomic_factor
+Rule 58    factor -> atomic_factor
+Rule 59    atomic_factor -> ID
+Rule 60    atomic_factor -> CONST_INT
+Rule 61    atomic_factor -> CONST_FLOAT
+Rule 62    atomic_factor -> CONST_STRING
+Rule 63    atomic_factor -> TRUE
+Rule 64    atomic_factor -> FALSE
+Rule 65    atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+Rule 66    function_call -> ID DEL_PAR_OPEN argument_list DEL_PAR_CLOSE
+Rule 67    argument_list -> expresion
+Rule 68    argument_list -> argument_list COMMA expresion
+Rule 69    argument_list -> empty
+Rule 70    empty -> <empty>
+Rule 71    expresion -> exp
+Rule 72    expresion -> exp OP_REL exp
+
+Terminals, with rules where they appear
+
+ASSIGN_OP            : 44
+BOOL                 : 20
+COLON                : 15 23
+COMMA                : 13 25 43 68
+CONST_FLOAT          : 61
+CONST_INT            : 60
+CONST_STRING         : 62
+DEL_PAR_CLOSE        : 11 37 38 41 45 46 55 65 66
+DEL_PAR_OPEN         : 11 37 38 41 45 46 55 65 66
+DO                   : 45
+ELSE                 : 38 47
+END                  : 1
+FALSE                : 64
+FLOAT                : 18
+ID                   : 1 11 15 24 25 44 59 66
+IF                   : 37 38 46
+INT                  : 17
+LBRACE               : 26
+LBRACKET             : 11
+MAIN                 : 1
+OP_DIV               : 54
+OP_MULT              : 53
+OP_REL               : 72
+OP_RESTA             : 51 57
+OP_SUMA              : 50 56
+PRINT                : 41
+PROGRAM              : 1
+RBRACE               : 26
+RBRACKET             : 11
+RETURN               : 39 40
+SEMICOLON            : 1 11 23 34 37 38 39 40 41 44 45 46
+STRING               : 19
+TRUE                 : 63
+VAR                  : 6
+VOID                 : 16
+WHILE                : 45
+error                : 
+
+Nonterminals, with rules where they appear
+
+argument_list        : 66 68
+assign               : 30
+atomic_factor        : 56 57 58
+body                 : 1 11 37 38 38 45 46 47
+condition            : 32
+cycle                : 33
+else_part            : 46
+empty                : 3 10 14 29 48 69
+exp                  : 50 51 71 72 72
+expresion            : 37 38 39 42 43 44 45 46 55 65 67 68
+factor               : 52 53 54
+funcs_opt            : 1
+function             : 7 8
+function_call        : 34
+function_list        : 8 9
+id_list              : 23 25
+if_stmt              : 36
+param                : 12 13
+param_list           : 11 13
+print_arguments      : 41 43
+print_stmt           : 31
+programa             : 0
+return_stmt          : 35
+statement            : 27 28
+statement_list       : 26 28
+termino              : 49 50 51 53 54
+type                 : 11 15 23
+var_decl             : 21 22
+var_decl_list        : 6 22
+vars                 : 4 5
+vars_list            : 2 5
+vars_opt             : 1 11
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAM ID SEMICOLON vars_opt funcs_opt MAIN body END
+
+    PROGRAM         shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAM . ID SEMICOLON vars_opt funcs_opt MAIN body END
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAM ID . SEMICOLON vars_opt funcs_opt MAIN body END
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAM ID SEMICOLON . vars_opt funcs_opt MAIN body END
+    (2) vars_opt -> . vars_list
+    (3) vars_opt -> . empty
+    (4) vars_list -> . vars
+    (5) vars_list -> . vars_list vars
+    (70) empty -> .
+    (6) vars -> . VAR var_decl_list
+
+    VOID            reduce using rule 70 (empty -> .)
+    INT             reduce using rule 70 (empty -> .)
+    FLOAT           reduce using rule 70 (empty -> .)
+    STRING          reduce using rule 70 (empty -> .)
+    BOOL            reduce using rule 70 (empty -> .)
+    MAIN            reduce using rule 70 (empty -> .)
+    VAR             shift and go to state 9
+
+    vars_opt                       shift and go to state 5
+    vars_list                      shift and go to state 6
+    empty                          shift and go to state 7
+    vars                           shift and go to state 8
+
+state 5
+
+    (1) programa -> PROGRAM ID SEMICOLON vars_opt . funcs_opt MAIN body END
+    (9) funcs_opt -> . function_list
+    (10) funcs_opt -> . empty
+    (7) function_list -> . function
+    (8) function_list -> . function_list function
+    (70) empty -> .
+    (11) function -> . type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+    (16) type -> . VOID
+    (17) type -> . INT
+    (18) type -> . FLOAT
+    (19) type -> . STRING
+    (20) type -> . BOOL
+
+    MAIN            reduce using rule 70 (empty -> .)
+    VOID            shift and go to state 15
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    STRING          shift and go to state 18
+    BOOL            shift and go to state 19
+
+    funcs_opt                      shift and go to state 10
+    function_list                  shift and go to state 11
+    empty                          shift and go to state 12
+    function                       shift and go to state 13
+    type                           shift and go to state 14
+
+state 6
+
+    (2) vars_opt -> vars_list .
+    (5) vars_list -> vars_list . vars
+    (6) vars -> . VAR var_decl_list
+
+    VOID            reduce using rule 2 (vars_opt -> vars_list .)
+    INT             reduce using rule 2 (vars_opt -> vars_list .)
+    FLOAT           reduce using rule 2 (vars_opt -> vars_list .)
+    STRING          reduce using rule 2 (vars_opt -> vars_list .)
+    BOOL            reduce using rule 2 (vars_opt -> vars_list .)
+    MAIN            reduce using rule 2 (vars_opt -> vars_list .)
+    LBRACE          reduce using rule 2 (vars_opt -> vars_list .)
+    VAR             shift and go to state 9
+
+    vars                           shift and go to state 20
+
+state 7
+
+    (3) vars_opt -> empty .
+
+    VOID            reduce using rule 3 (vars_opt -> empty .)
+    INT             reduce using rule 3 (vars_opt -> empty .)
+    FLOAT           reduce using rule 3 (vars_opt -> empty .)
+    STRING          reduce using rule 3 (vars_opt -> empty .)
+    BOOL            reduce using rule 3 (vars_opt -> empty .)
+    MAIN            reduce using rule 3 (vars_opt -> empty .)
+    LBRACE          reduce using rule 3 (vars_opt -> empty .)
+
+
+state 8
+
+    (4) vars_list -> vars .
+
+    VAR             reduce using rule 4 (vars_list -> vars .)
+    VOID            reduce using rule 4 (vars_list -> vars .)
+    INT             reduce using rule 4 (vars_list -> vars .)
+    FLOAT           reduce using rule 4 (vars_list -> vars .)
+    STRING          reduce using rule 4 (vars_list -> vars .)
+    BOOL            reduce using rule 4 (vars_list -> vars .)
+    MAIN            reduce using rule 4 (vars_list -> vars .)
+    LBRACE          reduce using rule 4 (vars_list -> vars .)
+
+
+state 9
+
+    (6) vars -> VAR . var_decl_list
+    (21) var_decl_list -> . var_decl
+    (22) var_decl_list -> . var_decl_list var_decl
+    (23) var_decl -> . id_list COLON type SEMICOLON
+    (24) id_list -> . ID
+    (25) id_list -> . id_list COMMA ID
+
+    ID              shift and go to state 24
+
+    var_decl_list                  shift and go to state 21
+    var_decl                       shift and go to state 22
+    id_list                        shift and go to state 23
+
+state 10
+
+    (1) programa -> PROGRAM ID SEMICOLON vars_opt funcs_opt . MAIN body END
+
+    MAIN            shift and go to state 25
+
+
+state 11
+
+    (9) funcs_opt -> function_list .
+    (8) function_list -> function_list . function
+    (11) function -> . type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+    (16) type -> . VOID
+    (17) type -> . INT
+    (18) type -> . FLOAT
+    (19) type -> . STRING
+    (20) type -> . BOOL
+
+    MAIN            reduce using rule 9 (funcs_opt -> function_list .)
+    VOID            shift and go to state 15
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    STRING          shift and go to state 18
+    BOOL            shift and go to state 19
+
+    function                       shift and go to state 26
+    type                           shift and go to state 14
+
+state 12
+
+    (10) funcs_opt -> empty .
+
+    MAIN            reduce using rule 10 (funcs_opt -> empty .)
+
+
+state 13
+
+    (7) function_list -> function .
+
+    VOID            reduce using rule 7 (function_list -> function .)
+    INT             reduce using rule 7 (function_list -> function .)
+    FLOAT           reduce using rule 7 (function_list -> function .)
+    STRING          reduce using rule 7 (function_list -> function .)
+    BOOL            reduce using rule 7 (function_list -> function .)
+    MAIN            reduce using rule 7 (function_list -> function .)
+
+
+state 14
+
+    (11) function -> type . ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+
+    ID              shift and go to state 27
+
+
+state 15
+
+    (16) type -> VOID .
+
+    ID              reduce using rule 16 (type -> VOID .)
+    SEMICOLON       reduce using rule 16 (type -> VOID .)
+    DEL_PAR_CLOSE   reduce using rule 16 (type -> VOID .)
+    COMMA           reduce using rule 16 (type -> VOID .)
+
+
+state 16
+
+    (17) type -> INT .
+
+    ID              reduce using rule 17 (type -> INT .)
+    SEMICOLON       reduce using rule 17 (type -> INT .)
+    DEL_PAR_CLOSE   reduce using rule 17 (type -> INT .)
+    COMMA           reduce using rule 17 (type -> INT .)
+
+
+state 17
+
+    (18) type -> FLOAT .
+
+    ID              reduce using rule 18 (type -> FLOAT .)
+    SEMICOLON       reduce using rule 18 (type -> FLOAT .)
+    DEL_PAR_CLOSE   reduce using rule 18 (type -> FLOAT .)
+    COMMA           reduce using rule 18 (type -> FLOAT .)
+
+
+state 18
+
+    (19) type -> STRING .
+
+    ID              reduce using rule 19 (type -> STRING .)
+    SEMICOLON       reduce using rule 19 (type -> STRING .)
+    DEL_PAR_CLOSE   reduce using rule 19 (type -> STRING .)
+    COMMA           reduce using rule 19 (type -> STRING .)
+
+
+state 19
+
+    (20) type -> BOOL .
+
+    ID              reduce using rule 20 (type -> BOOL .)
+    SEMICOLON       reduce using rule 20 (type -> BOOL .)
+    DEL_PAR_CLOSE   reduce using rule 20 (type -> BOOL .)
+    COMMA           reduce using rule 20 (type -> BOOL .)
+
+
+state 20
+
+    (5) vars_list -> vars_list vars .
+
+    VAR             reduce using rule 5 (vars_list -> vars_list vars .)
+    VOID            reduce using rule 5 (vars_list -> vars_list vars .)
+    INT             reduce using rule 5 (vars_list -> vars_list vars .)
+    FLOAT           reduce using rule 5 (vars_list -> vars_list vars .)
+    STRING          reduce using rule 5 (vars_list -> vars_list vars .)
+    BOOL            reduce using rule 5 (vars_list -> vars_list vars .)
+    MAIN            reduce using rule 5 (vars_list -> vars_list vars .)
+    LBRACE          reduce using rule 5 (vars_list -> vars_list vars .)
+
+
+state 21
+
+    (6) vars -> VAR var_decl_list .
+    (22) var_decl_list -> var_decl_list . var_decl
+    (23) var_decl -> . id_list COLON type SEMICOLON
+    (24) id_list -> . ID
+    (25) id_list -> . id_list COMMA ID
+
+    VAR             reduce using rule 6 (vars -> VAR var_decl_list .)
+    VOID            reduce using rule 6 (vars -> VAR var_decl_list .)
+    INT             reduce using rule 6 (vars -> VAR var_decl_list .)
+    FLOAT           reduce using rule 6 (vars -> VAR var_decl_list .)
+    STRING          reduce using rule 6 (vars -> VAR var_decl_list .)
+    BOOL            reduce using rule 6 (vars -> VAR var_decl_list .)
+    MAIN            reduce using rule 6 (vars -> VAR var_decl_list .)
+    LBRACE          reduce using rule 6 (vars -> VAR var_decl_list .)
+    ID              shift and go to state 24
+
+    var_decl                       shift and go to state 28
+    id_list                        shift and go to state 23
+
+state 22
+
+    (21) var_decl_list -> var_decl .
+
+    ID              reduce using rule 21 (var_decl_list -> var_decl .)
+    VAR             reduce using rule 21 (var_decl_list -> var_decl .)
+    VOID            reduce using rule 21 (var_decl_list -> var_decl .)
+    INT             reduce using rule 21 (var_decl_list -> var_decl .)
+    FLOAT           reduce using rule 21 (var_decl_list -> var_decl .)
+    STRING          reduce using rule 21 (var_decl_list -> var_decl .)
+    BOOL            reduce using rule 21 (var_decl_list -> var_decl .)
+    MAIN            reduce using rule 21 (var_decl_list -> var_decl .)
+    LBRACE          reduce using rule 21 (var_decl_list -> var_decl .)
+
+
+state 23
+
+    (23) var_decl -> id_list . COLON type SEMICOLON
+    (25) id_list -> id_list . COMMA ID
+
+    COLON           shift and go to state 29
+    COMMA           shift and go to state 30
+
+
+state 24
+
+    (24) id_list -> ID .
+
+    COLON           reduce using rule 24 (id_list -> ID .)
+    COMMA           reduce using rule 24 (id_list -> ID .)
+
+
+state 25
+
+    (1) programa -> PROGRAM ID SEMICOLON vars_opt funcs_opt MAIN . body END
+    (26) body -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 32
+
+    body                           shift and go to state 31
+
+state 26
+
+    (8) function_list -> function_list function .
+
+    VOID            reduce using rule 8 (function_list -> function_list function .)
+    INT             reduce using rule 8 (function_list -> function_list function .)
+    FLOAT           reduce using rule 8 (function_list -> function_list function .)
+    STRING          reduce using rule 8 (function_list -> function_list function .)
+    BOOL            reduce using rule 8 (function_list -> function_list function .)
+    MAIN            reduce using rule 8 (function_list -> function_list function .)
+
+
+state 27
+
+    (11) function -> type ID . DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+
+    DEL_PAR_OPEN    shift and go to state 33
+
+
+state 28
+
+    (22) var_decl_list -> var_decl_list var_decl .
+
+    ID              reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    VAR             reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    VOID            reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    INT             reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    FLOAT           reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    STRING          reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    BOOL            reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    MAIN            reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+    LBRACE          reduce using rule 22 (var_decl_list -> var_decl_list var_decl .)
+
+
+state 29
+
+    (23) var_decl -> id_list COLON . type SEMICOLON
+    (16) type -> . VOID
+    (17) type -> . INT
+    (18) type -> . FLOAT
+    (19) type -> . STRING
+    (20) type -> . BOOL
+
+    VOID            shift and go to state 15
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    STRING          shift and go to state 18
+    BOOL            shift and go to state 19
+
+    type                           shift and go to state 34
+
+state 30
+
+    (25) id_list -> id_list COMMA . ID
+
+    ID              shift and go to state 35
+
+
+state 31
+
+    (1) programa -> PROGRAM ID SEMICOLON vars_opt funcs_opt MAIN body . END
+
+    END             shift and go to state 36
+
+
+state 32
+
+    (26) body -> LBRACE . statement_list RBRACE
+    (27) statement_list -> . statement
+    (28) statement_list -> . statement_list statement
+    (29) statement_list -> . empty
+    (30) statement -> . assign
+    (31) statement -> . print_stmt
+    (32) statement -> . condition
+    (33) statement -> . cycle
+    (34) statement -> . function_call SEMICOLON
+    (35) statement -> . return_stmt
+    (36) statement -> . if_stmt
+    (70) empty -> .
+    (44) assign -> . ID ASSIGN_OP expresion SEMICOLON
+    (41) print_stmt -> . PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON
+    (46) condition -> . IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON
+    (45) cycle -> . DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON
+    (66) function_call -> . ID DEL_PAR_OPEN argument_list DEL_PAR_CLOSE
+    (39) return_stmt -> . RETURN expresion SEMICOLON
+    (40) return_stmt -> . RETURN SEMICOLON
+    (37) if_stmt -> . IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON
+    (38) if_stmt -> . IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON
+
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+    RBRACE          reduce using rule 70 (empty -> .)
+    ID              shift and go to state 47
+    PRINT           shift and go to state 48
+    IF              shift and go to state 49
+    DO              shift and go to state 50
+    RETURN          shift and go to state 51
+
+  ! ID              [ reduce using rule 70 (empty -> .) ]
+  ! PRINT           [ reduce using rule 70 (empty -> .) ]
+  ! IF              [ reduce using rule 70 (empty -> .) ]
+  ! DO              [ reduce using rule 70 (empty -> .) ]
+  ! RETURN          [ reduce using rule 70 (empty -> .) ]
+
+    statement_list                 shift and go to state 37
+    statement                      shift and go to state 38
+    empty                          shift and go to state 39
+    assign                         shift and go to state 40
+    print_stmt                     shift and go to state 41
+    condition                      shift and go to state 42
+    cycle                          shift and go to state 43
+    function_call                  shift and go to state 44
+    return_stmt                    shift and go to state 45
+    if_stmt                        shift and go to state 46
+
+state 33
+
+    (11) function -> type ID DEL_PAR_OPEN . param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+    (12) param_list -> . param
+    (13) param_list -> . param_list COMMA param
+    (14) param_list -> . empty
+    (15) param -> . ID COLON type
+    (70) empty -> .
+
+    ID              shift and go to state 52
+    DEL_PAR_CLOSE   reduce using rule 70 (empty -> .)
+    COMMA           reduce using rule 70 (empty -> .)
+
+    param_list                     shift and go to state 53
+    param                          shift and go to state 54
+    empty                          shift and go to state 55
+
+state 34
+
+    (23) var_decl -> id_list COLON type . SEMICOLON
+
+    SEMICOLON       shift and go to state 56
+
+
+state 35
+
+    (25) id_list -> id_list COMMA ID .
+
+    COLON           reduce using rule 25 (id_list -> id_list COMMA ID .)
+    COMMA           reduce using rule 25 (id_list -> id_list COMMA ID .)
+
+
+state 36
+
+    (1) programa -> PROGRAM ID SEMICOLON vars_opt funcs_opt MAIN body END .
+
+    $end            reduce using rule 1 (programa -> PROGRAM ID SEMICOLON vars_opt funcs_opt MAIN body END .)
+
+
+state 37
+
+    (26) body -> LBRACE statement_list . RBRACE
+    (28) statement_list -> statement_list . statement
+    (30) statement -> . assign
+    (31) statement -> . print_stmt
+    (32) statement -> . condition
+    (33) statement -> . cycle
+    (34) statement -> . function_call SEMICOLON
+    (35) statement -> . return_stmt
+    (36) statement -> . if_stmt
+    (44) assign -> . ID ASSIGN_OP expresion SEMICOLON
+    (41) print_stmt -> . PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON
+    (46) condition -> . IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON
+    (45) cycle -> . DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON
+    (66) function_call -> . ID DEL_PAR_OPEN argument_list DEL_PAR_CLOSE
+    (39) return_stmt -> . RETURN expresion SEMICOLON
+    (40) return_stmt -> . RETURN SEMICOLON
+    (37) if_stmt -> . IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON
+    (38) if_stmt -> . IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON
+
+    RBRACE          shift and go to state 57
+    ID              shift and go to state 47
+    PRINT           shift and go to state 48
+    IF              shift and go to state 49
+    DO              shift and go to state 50
+    RETURN          shift and go to state 51
+
+    statement                      shift and go to state 58
+    assign                         shift and go to state 40
+    print_stmt                     shift and go to state 41
+    condition                      shift and go to state 42
+    cycle                          shift and go to state 43
+    function_call                  shift and go to state 44
+    return_stmt                    shift and go to state 45
+    if_stmt                        shift and go to state 46
+
+state 38
+
+    (27) statement_list -> statement .
+
+    RBRACE          reduce using rule 27 (statement_list -> statement .)
+    ID              reduce using rule 27 (statement_list -> statement .)
+    PRINT           reduce using rule 27 (statement_list -> statement .)
+    IF              reduce using rule 27 (statement_list -> statement .)
+    DO              reduce using rule 27 (statement_list -> statement .)
+    RETURN          reduce using rule 27 (statement_list -> statement .)
+
+
+state 39
+
+    (29) statement_list -> empty .
+
+    RBRACE          reduce using rule 29 (statement_list -> empty .)
+    ID              reduce using rule 29 (statement_list -> empty .)
+    PRINT           reduce using rule 29 (statement_list -> empty .)
+    IF              reduce using rule 29 (statement_list -> empty .)
+    DO              reduce using rule 29 (statement_list -> empty .)
+    RETURN          reduce using rule 29 (statement_list -> empty .)
+
+
+state 40
+
+    (30) statement -> assign .
+
+    RBRACE          reduce using rule 30 (statement -> assign .)
+    ID              reduce using rule 30 (statement -> assign .)
+    PRINT           reduce using rule 30 (statement -> assign .)
+    IF              reduce using rule 30 (statement -> assign .)
+    DO              reduce using rule 30 (statement -> assign .)
+    RETURN          reduce using rule 30 (statement -> assign .)
+
+
+state 41
+
+    (31) statement -> print_stmt .
+
+    RBRACE          reduce using rule 31 (statement -> print_stmt .)
+    ID              reduce using rule 31 (statement -> print_stmt .)
+    PRINT           reduce using rule 31 (statement -> print_stmt .)
+    IF              reduce using rule 31 (statement -> print_stmt .)
+    DO              reduce using rule 31 (statement -> print_stmt .)
+    RETURN          reduce using rule 31 (statement -> print_stmt .)
+
+
+state 42
+
+    (32) statement -> condition .
+
+    RBRACE          reduce using rule 32 (statement -> condition .)
+    ID              reduce using rule 32 (statement -> condition .)
+    PRINT           reduce using rule 32 (statement -> condition .)
+    IF              reduce using rule 32 (statement -> condition .)
+    DO              reduce using rule 32 (statement -> condition .)
+    RETURN          reduce using rule 32 (statement -> condition .)
+
+
+state 43
+
+    (33) statement -> cycle .
+
+    RBRACE          reduce using rule 33 (statement -> cycle .)
+    ID              reduce using rule 33 (statement -> cycle .)
+    PRINT           reduce using rule 33 (statement -> cycle .)
+    IF              reduce using rule 33 (statement -> cycle .)
+    DO              reduce using rule 33 (statement -> cycle .)
+    RETURN          reduce using rule 33 (statement -> cycle .)
+
+
+state 44
+
+    (34) statement -> function_call . SEMICOLON
+
+    SEMICOLON       shift and go to state 59
+
+
+state 45
+
+    (35) statement -> return_stmt .
+
+    RBRACE          reduce using rule 35 (statement -> return_stmt .)
+    ID              reduce using rule 35 (statement -> return_stmt .)
+    PRINT           reduce using rule 35 (statement -> return_stmt .)
+    IF              reduce using rule 35 (statement -> return_stmt .)
+    DO              reduce using rule 35 (statement -> return_stmt .)
+    RETURN          reduce using rule 35 (statement -> return_stmt .)
+
+
+state 46
+
+    (36) statement -> if_stmt .
+
+    RBRACE          reduce using rule 36 (statement -> if_stmt .)
+    ID              reduce using rule 36 (statement -> if_stmt .)
+    PRINT           reduce using rule 36 (statement -> if_stmt .)
+    IF              reduce using rule 36 (statement -> if_stmt .)
+    DO              reduce using rule 36 (statement -> if_stmt .)
+    RETURN          reduce using rule 36 (statement -> if_stmt .)
+
+
+state 47
+
+    (44) assign -> ID . ASSIGN_OP expresion SEMICOLON
+    (66) function_call -> ID . DEL_PAR_OPEN argument_list DEL_PAR_CLOSE
+
+    ASSIGN_OP       shift and go to state 60
+    DEL_PAR_OPEN    shift and go to state 61
+
+
+state 48
+
+    (41) print_stmt -> PRINT . DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON
+
+    DEL_PAR_OPEN    shift and go to state 62
+
+
+state 49
+
+    (46) condition -> IF . DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON
+    (37) if_stmt -> IF . DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON
+    (38) if_stmt -> IF . DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON
+
+    DEL_PAR_OPEN    shift and go to state 63
+
+
+state 50
+
+    (45) cycle -> DO . body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON
+    (26) body -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 32
+
+    body                           shift and go to state 64
+
+state 51
+
+    (39) return_stmt -> RETURN . expresion SEMICOLON
+    (40) return_stmt -> RETURN . SEMICOLON
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    SEMICOLON       shift and go to state 66
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 65
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 52
+
+    (15) param -> ID . COLON type
+
+    COLON           shift and go to state 80
+
+
+state 53
+
+    (11) function -> type ID DEL_PAR_OPEN param_list . DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON
+    (13) param_list -> param_list . COMMA param
+
+    DEL_PAR_CLOSE   shift and go to state 81
+    COMMA           shift and go to state 82
+
+
+state 54
+
+    (12) param_list -> param .
+
+    DEL_PAR_CLOSE   reduce using rule 12 (param_list -> param .)
+    COMMA           reduce using rule 12 (param_list -> param .)
+
+
+state 55
+
+    (14) param_list -> empty .
+
+    DEL_PAR_CLOSE   reduce using rule 14 (param_list -> empty .)
+    COMMA           reduce using rule 14 (param_list -> empty .)
+
+
+state 56
+
+    (23) var_decl -> id_list COLON type SEMICOLON .
+
+    ID              reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    VAR             reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    VOID            reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    INT             reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    FLOAT           reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    STRING          reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    BOOL            reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    MAIN            reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+    LBRACE          reduce using rule 23 (var_decl -> id_list COLON type SEMICOLON .)
+
+
+state 57
+
+    (26) body -> LBRACE statement_list RBRACE .
+
+    END             reduce using rule 26 (body -> LBRACE statement_list RBRACE .)
+    WHILE           reduce using rule 26 (body -> LBRACE statement_list RBRACE .)
+    SEMICOLON       reduce using rule 26 (body -> LBRACE statement_list RBRACE .)
+    ELSE            reduce using rule 26 (body -> LBRACE statement_list RBRACE .)
+    RBRACKET        reduce using rule 26 (body -> LBRACE statement_list RBRACE .)
+
+
+state 58
+
+    (28) statement_list -> statement_list statement .
+
+    RBRACE          reduce using rule 28 (statement_list -> statement_list statement .)
+    ID              reduce using rule 28 (statement_list -> statement_list statement .)
+    PRINT           reduce using rule 28 (statement_list -> statement_list statement .)
+    IF              reduce using rule 28 (statement_list -> statement_list statement .)
+    DO              reduce using rule 28 (statement_list -> statement_list statement .)
+    RETURN          reduce using rule 28 (statement_list -> statement_list statement .)
+
+
+state 59
+
+    (34) statement -> function_call SEMICOLON .
+
+    RBRACE          reduce using rule 34 (statement -> function_call SEMICOLON .)
+    ID              reduce using rule 34 (statement -> function_call SEMICOLON .)
+    PRINT           reduce using rule 34 (statement -> function_call SEMICOLON .)
+    IF              reduce using rule 34 (statement -> function_call SEMICOLON .)
+    DO              reduce using rule 34 (statement -> function_call SEMICOLON .)
+    RETURN          reduce using rule 34 (statement -> function_call SEMICOLON .)
+
+
+state 60
+
+    (44) assign -> ID ASSIGN_OP . expresion SEMICOLON
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 83
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 61
+
+    (66) function_call -> ID DEL_PAR_OPEN . argument_list DEL_PAR_CLOSE
+    (67) argument_list -> . expresion
+    (68) argument_list -> . argument_list COMMA expresion
+    (69) argument_list -> . empty
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (70) empty -> .
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_CLOSE   reduce using rule 70 (empty -> .)
+    COMMA           reduce using rule 70 (empty -> .)
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    argument_list                  shift and go to state 84
+    expresion                      shift and go to state 85
+    empty                          shift and go to state 86
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 62
+
+    (41) print_stmt -> PRINT DEL_PAR_OPEN . print_arguments DEL_PAR_CLOSE SEMICOLON
+    (42) print_arguments -> . expresion
+    (43) print_arguments -> . print_arguments COMMA expresion
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    print_arguments                shift and go to state 87
+    expresion                      shift and go to state 88
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 63
+
+    (46) condition -> IF DEL_PAR_OPEN . expresion DEL_PAR_CLOSE body else_part SEMICOLON
+    (37) if_stmt -> IF DEL_PAR_OPEN . expresion DEL_PAR_CLOSE body SEMICOLON
+    (38) if_stmt -> IF DEL_PAR_OPEN . expresion DEL_PAR_CLOSE body ELSE body SEMICOLON
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 89
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 64
+
+    (45) cycle -> DO body . WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON
+
+    WHILE           shift and go to state 90
+
+
+state 65
+
+    (39) return_stmt -> RETURN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 91
+
+
+state 66
+
+    (40) return_stmt -> RETURN SEMICOLON .
+
+    RBRACE          reduce using rule 40 (return_stmt -> RETURN SEMICOLON .)
+    ID              reduce using rule 40 (return_stmt -> RETURN SEMICOLON .)
+    PRINT           reduce using rule 40 (return_stmt -> RETURN SEMICOLON .)
+    IF              reduce using rule 40 (return_stmt -> RETURN SEMICOLON .)
+    DO              reduce using rule 40 (return_stmt -> RETURN SEMICOLON .)
+    RETURN          reduce using rule 40 (return_stmt -> RETURN SEMICOLON .)
+
+
+state 67
+
+    (71) expresion -> exp .
+    (72) expresion -> exp . OP_REL exp
+    (50) exp -> exp . OP_SUMA termino
+    (51) exp -> exp . OP_RESTA termino
+
+    SEMICOLON       reduce using rule 71 (expresion -> exp .)
+    DEL_PAR_CLOSE   reduce using rule 71 (expresion -> exp .)
+    COMMA           reduce using rule 71 (expresion -> exp .)
+    OP_REL          shift and go to state 92
+    OP_SUMA         shift and go to state 93
+    OP_RESTA        shift and go to state 94
+
+
+state 68
+
+    (49) exp -> termino .
+    (53) termino -> termino . OP_MULT factor
+    (54) termino -> termino . OP_DIV factor
+
+    OP_REL          reduce using rule 49 (exp -> termino .)
+    OP_SUMA         reduce using rule 49 (exp -> termino .)
+    OP_RESTA        reduce using rule 49 (exp -> termino .)
+    SEMICOLON       reduce using rule 49 (exp -> termino .)
+    DEL_PAR_CLOSE   reduce using rule 49 (exp -> termino .)
+    COMMA           reduce using rule 49 (exp -> termino .)
+    OP_MULT         shift and go to state 95
+    OP_DIV          shift and go to state 96
+
+
+state 69
+
+    (56) factor -> OP_SUMA . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+    DEL_PAR_OPEN    shift and go to state 98
+
+    atomic_factor                  shift and go to state 97
+
+state 70
+
+    (57) factor -> OP_RESTA . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+    DEL_PAR_OPEN    shift and go to state 98
+
+    atomic_factor                  shift and go to state 99
+
+state 71
+
+    (52) termino -> factor .
+
+    OP_MULT         reduce using rule 52 (termino -> factor .)
+    OP_DIV          reduce using rule 52 (termino -> factor .)
+    OP_REL          reduce using rule 52 (termino -> factor .)
+    OP_SUMA         reduce using rule 52 (termino -> factor .)
+    OP_RESTA        reduce using rule 52 (termino -> factor .)
+    SEMICOLON       reduce using rule 52 (termino -> factor .)
+    DEL_PAR_CLOSE   reduce using rule 52 (termino -> factor .)
+    COMMA           reduce using rule 52 (termino -> factor .)
+
+
+state 72
+
+    (55) factor -> DEL_PAR_OPEN . expresion DEL_PAR_CLOSE
+    (65) atomic_factor -> DEL_PAR_OPEN . expresion DEL_PAR_CLOSE
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 100
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 73
+
+    (58) factor -> atomic_factor .
+
+    OP_MULT         reduce using rule 58 (factor -> atomic_factor .)
+    OP_DIV          reduce using rule 58 (factor -> atomic_factor .)
+    OP_REL          reduce using rule 58 (factor -> atomic_factor .)
+    OP_SUMA         reduce using rule 58 (factor -> atomic_factor .)
+    OP_RESTA        reduce using rule 58 (factor -> atomic_factor .)
+    SEMICOLON       reduce using rule 58 (factor -> atomic_factor .)
+    DEL_PAR_CLOSE   reduce using rule 58 (factor -> atomic_factor .)
+    COMMA           reduce using rule 58 (factor -> atomic_factor .)
+
+
+state 74
+
+    (59) atomic_factor -> ID .
+
+    OP_MULT         reduce using rule 59 (atomic_factor -> ID .)
+    OP_DIV          reduce using rule 59 (atomic_factor -> ID .)
+    OP_REL          reduce using rule 59 (atomic_factor -> ID .)
+    OP_SUMA         reduce using rule 59 (atomic_factor -> ID .)
+    OP_RESTA        reduce using rule 59 (atomic_factor -> ID .)
+    SEMICOLON       reduce using rule 59 (atomic_factor -> ID .)
+    DEL_PAR_CLOSE   reduce using rule 59 (atomic_factor -> ID .)
+    COMMA           reduce using rule 59 (atomic_factor -> ID .)
+
+
+state 75
+
+    (60) atomic_factor -> CONST_INT .
+
+    OP_MULT         reduce using rule 60 (atomic_factor -> CONST_INT .)
+    OP_DIV          reduce using rule 60 (atomic_factor -> CONST_INT .)
+    OP_REL          reduce using rule 60 (atomic_factor -> CONST_INT .)
+    OP_SUMA         reduce using rule 60 (atomic_factor -> CONST_INT .)
+    OP_RESTA        reduce using rule 60 (atomic_factor -> CONST_INT .)
+    SEMICOLON       reduce using rule 60 (atomic_factor -> CONST_INT .)
+    DEL_PAR_CLOSE   reduce using rule 60 (atomic_factor -> CONST_INT .)
+    COMMA           reduce using rule 60 (atomic_factor -> CONST_INT .)
+
+
+state 76
+
+    (61) atomic_factor -> CONST_FLOAT .
+
+    OP_MULT         reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    OP_DIV          reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    OP_REL          reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    OP_SUMA         reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    OP_RESTA        reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    SEMICOLON       reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    DEL_PAR_CLOSE   reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+    COMMA           reduce using rule 61 (atomic_factor -> CONST_FLOAT .)
+
+
+state 77
+
+    (62) atomic_factor -> CONST_STRING .
+
+    OP_MULT         reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    OP_DIV          reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    OP_REL          reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    OP_SUMA         reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    OP_RESTA        reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    SEMICOLON       reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    DEL_PAR_CLOSE   reduce using rule 62 (atomic_factor -> CONST_STRING .)
+    COMMA           reduce using rule 62 (atomic_factor -> CONST_STRING .)
+
+
+state 78
+
+    (63) atomic_factor -> TRUE .
+
+    OP_MULT         reduce using rule 63 (atomic_factor -> TRUE .)
+    OP_DIV          reduce using rule 63 (atomic_factor -> TRUE .)
+    OP_REL          reduce using rule 63 (atomic_factor -> TRUE .)
+    OP_SUMA         reduce using rule 63 (atomic_factor -> TRUE .)
+    OP_RESTA        reduce using rule 63 (atomic_factor -> TRUE .)
+    SEMICOLON       reduce using rule 63 (atomic_factor -> TRUE .)
+    DEL_PAR_CLOSE   reduce using rule 63 (atomic_factor -> TRUE .)
+    COMMA           reduce using rule 63 (atomic_factor -> TRUE .)
+
+
+state 79
+
+    (64) atomic_factor -> FALSE .
+
+    OP_MULT         reduce using rule 64 (atomic_factor -> FALSE .)
+    OP_DIV          reduce using rule 64 (atomic_factor -> FALSE .)
+    OP_REL          reduce using rule 64 (atomic_factor -> FALSE .)
+    OP_SUMA         reduce using rule 64 (atomic_factor -> FALSE .)
+    OP_RESTA        reduce using rule 64 (atomic_factor -> FALSE .)
+    SEMICOLON       reduce using rule 64 (atomic_factor -> FALSE .)
+    DEL_PAR_CLOSE   reduce using rule 64 (atomic_factor -> FALSE .)
+    COMMA           reduce using rule 64 (atomic_factor -> FALSE .)
+
+
+state 80
+
+    (15) param -> ID COLON . type
+    (16) type -> . VOID
+    (17) type -> . INT
+    (18) type -> . FLOAT
+    (19) type -> . STRING
+    (20) type -> . BOOL
+
+    VOID            shift and go to state 15
+    INT             shift and go to state 16
+    FLOAT           shift and go to state 17
+    STRING          shift and go to state 18
+    BOOL            shift and go to state 19
+
+    type                           shift and go to state 101
+
+state 81
+
+    (11) function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE . LBRACKET vars_opt body RBRACKET SEMICOLON
+
+    LBRACKET        shift and go to state 102
+
+
+state 82
+
+    (13) param_list -> param_list COMMA . param
+    (15) param -> . ID COLON type
+
+    ID              shift and go to state 52
+
+    param                          shift and go to state 103
+
+state 83
+
+    (44) assign -> ID ASSIGN_OP expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 104
+
+
+state 84
+
+    (66) function_call -> ID DEL_PAR_OPEN argument_list . DEL_PAR_CLOSE
+    (68) argument_list -> argument_list . COMMA expresion
+
+    DEL_PAR_CLOSE   shift and go to state 105
+    COMMA           shift and go to state 106
+
+
+state 85
+
+    (67) argument_list -> expresion .
+
+    DEL_PAR_CLOSE   reduce using rule 67 (argument_list -> expresion .)
+    COMMA           reduce using rule 67 (argument_list -> expresion .)
+
+
+state 86
+
+    (69) argument_list -> empty .
+
+    DEL_PAR_CLOSE   reduce using rule 69 (argument_list -> empty .)
+    COMMA           reduce using rule 69 (argument_list -> empty .)
+
+
+state 87
+
+    (41) print_stmt -> PRINT DEL_PAR_OPEN print_arguments . DEL_PAR_CLOSE SEMICOLON
+    (43) print_arguments -> print_arguments . COMMA expresion
+
+    DEL_PAR_CLOSE   shift and go to state 107
+    COMMA           shift and go to state 108
+
+
+state 88
+
+    (42) print_arguments -> expresion .
+
+    DEL_PAR_CLOSE   reduce using rule 42 (print_arguments -> expresion .)
+    COMMA           reduce using rule 42 (print_arguments -> expresion .)
+
+
+state 89
+
+    (46) condition -> IF DEL_PAR_OPEN expresion . DEL_PAR_CLOSE body else_part SEMICOLON
+    (37) if_stmt -> IF DEL_PAR_OPEN expresion . DEL_PAR_CLOSE body SEMICOLON
+    (38) if_stmt -> IF DEL_PAR_OPEN expresion . DEL_PAR_CLOSE body ELSE body SEMICOLON
+
+    DEL_PAR_CLOSE   shift and go to state 109
+
+
+state 90
+
+    (45) cycle -> DO body WHILE . DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON
+
+    DEL_PAR_OPEN    shift and go to state 110
+
+
+state 91
+
+    (39) return_stmt -> RETURN expresion SEMICOLON .
+
+    RBRACE          reduce using rule 39 (return_stmt -> RETURN expresion SEMICOLON .)
+    ID              reduce using rule 39 (return_stmt -> RETURN expresion SEMICOLON .)
+    PRINT           reduce using rule 39 (return_stmt -> RETURN expresion SEMICOLON .)
+    IF              reduce using rule 39 (return_stmt -> RETURN expresion SEMICOLON .)
+    DO              reduce using rule 39 (return_stmt -> RETURN expresion SEMICOLON .)
+    RETURN          reduce using rule 39 (return_stmt -> RETURN expresion SEMICOLON .)
+
+
+state 92
+
+    (72) expresion -> exp OP_REL . exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    exp                            shift and go to state 111
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 93
+
+    (50) exp -> exp OP_SUMA . termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    termino                        shift and go to state 112
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 94
+
+    (51) exp -> exp OP_RESTA . termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    termino                        shift and go to state 113
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 95
+
+    (53) termino -> termino OP_MULT . factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    factor                         shift and go to state 114
+    atomic_factor                  shift and go to state 73
+
+state 96
+
+    (54) termino -> termino OP_DIV . factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    factor                         shift and go to state 115
+    atomic_factor                  shift and go to state 73
+
+state 97
+
+    (56) factor -> OP_SUMA atomic_factor .
+
+    OP_MULT         reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    OP_DIV          reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    OP_REL          reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    OP_SUMA         reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    OP_RESTA        reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    SEMICOLON       reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    DEL_PAR_CLOSE   reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+    COMMA           reduce using rule 56 (factor -> OP_SUMA atomic_factor .)
+
+
+state 98
+
+    (65) atomic_factor -> DEL_PAR_OPEN . expresion DEL_PAR_CLOSE
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 116
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 99
+
+    (57) factor -> OP_RESTA atomic_factor .
+
+    OP_MULT         reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    OP_DIV          reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    OP_REL          reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    OP_SUMA         reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    OP_RESTA        reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    SEMICOLON       reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    DEL_PAR_CLOSE   reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+    COMMA           reduce using rule 57 (factor -> OP_RESTA atomic_factor .)
+
+
+state 100
+
+    (55) factor -> DEL_PAR_OPEN expresion . DEL_PAR_CLOSE
+    (65) atomic_factor -> DEL_PAR_OPEN expresion . DEL_PAR_CLOSE
+
+    DEL_PAR_CLOSE   shift and go to state 117
+
+
+state 101
+
+    (15) param -> ID COLON type .
+
+    DEL_PAR_CLOSE   reduce using rule 15 (param -> ID COLON type .)
+    COMMA           reduce using rule 15 (param -> ID COLON type .)
+
+
+state 102
+
+    (11) function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET . vars_opt body RBRACKET SEMICOLON
+    (2) vars_opt -> . vars_list
+    (3) vars_opt -> . empty
+    (4) vars_list -> . vars
+    (5) vars_list -> . vars_list vars
+    (70) empty -> .
+    (6) vars -> . VAR var_decl_list
+
+    LBRACE          reduce using rule 70 (empty -> .)
+    VAR             shift and go to state 9
+
+    vars_opt                       shift and go to state 118
+    vars_list                      shift and go to state 6
+    empty                          shift and go to state 7
+    vars                           shift and go to state 8
+
+state 103
+
+    (13) param_list -> param_list COMMA param .
+
+    DEL_PAR_CLOSE   reduce using rule 13 (param_list -> param_list COMMA param .)
+    COMMA           reduce using rule 13 (param_list -> param_list COMMA param .)
+
+
+state 104
+
+    (44) assign -> ID ASSIGN_OP expresion SEMICOLON .
+
+    RBRACE          reduce using rule 44 (assign -> ID ASSIGN_OP expresion SEMICOLON .)
+    ID              reduce using rule 44 (assign -> ID ASSIGN_OP expresion SEMICOLON .)
+    PRINT           reduce using rule 44 (assign -> ID ASSIGN_OP expresion SEMICOLON .)
+    IF              reduce using rule 44 (assign -> ID ASSIGN_OP expresion SEMICOLON .)
+    DO              reduce using rule 44 (assign -> ID ASSIGN_OP expresion SEMICOLON .)
+    RETURN          reduce using rule 44 (assign -> ID ASSIGN_OP expresion SEMICOLON .)
+
+
+state 105
+
+    (66) function_call -> ID DEL_PAR_OPEN argument_list DEL_PAR_CLOSE .
+
+    SEMICOLON       reduce using rule 66 (function_call -> ID DEL_PAR_OPEN argument_list DEL_PAR_CLOSE .)
+
+
+state 106
+
+    (68) argument_list -> argument_list COMMA . expresion
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 119
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 107
+
+    (41) print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE . SEMICOLON
+
+    SEMICOLON       shift and go to state 120
+
+
+state 108
+
+    (43) print_arguments -> print_arguments COMMA . expresion
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 121
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 109
+
+    (46) condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE . body else_part SEMICOLON
+    (37) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE . body SEMICOLON
+    (38) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE . body ELSE body SEMICOLON
+    (26) body -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 32
+
+    body                           shift and go to state 122
+
+state 110
+
+    (45) cycle -> DO body WHILE DEL_PAR_OPEN . expresion DEL_PAR_CLOSE SEMICOLON
+    (71) expresion -> . exp
+    (72) expresion -> . exp OP_REL exp
+    (49) exp -> . termino
+    (50) exp -> . exp OP_SUMA termino
+    (51) exp -> . exp OP_RESTA termino
+    (52) termino -> . factor
+    (53) termino -> . termino OP_MULT factor
+    (54) termino -> . termino OP_DIV factor
+    (55) factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+    (56) factor -> . OP_SUMA atomic_factor
+    (57) factor -> . OP_RESTA atomic_factor
+    (58) factor -> . atomic_factor
+    (59) atomic_factor -> . ID
+    (60) atomic_factor -> . CONST_INT
+    (61) atomic_factor -> . CONST_FLOAT
+    (62) atomic_factor -> . CONST_STRING
+    (63) atomic_factor -> . TRUE
+    (64) atomic_factor -> . FALSE
+    (65) atomic_factor -> . DEL_PAR_OPEN expresion DEL_PAR_CLOSE
+
+    DEL_PAR_OPEN    shift and go to state 72
+    OP_SUMA         shift and go to state 69
+    OP_RESTA        shift and go to state 70
+    ID              shift and go to state 74
+    CONST_INT       shift and go to state 75
+    CONST_FLOAT     shift and go to state 76
+    CONST_STRING    shift and go to state 77
+    TRUE            shift and go to state 78
+    FALSE           shift and go to state 79
+
+    expresion                      shift and go to state 123
+    exp                            shift and go to state 67
+    termino                        shift and go to state 68
+    factor                         shift and go to state 71
+    atomic_factor                  shift and go to state 73
+
+state 111
+
+    (72) expresion -> exp OP_REL exp .
+    (50) exp -> exp . OP_SUMA termino
+    (51) exp -> exp . OP_RESTA termino
+
+    SEMICOLON       reduce using rule 72 (expresion -> exp OP_REL exp .)
+    DEL_PAR_CLOSE   reduce using rule 72 (expresion -> exp OP_REL exp .)
+    COMMA           reduce using rule 72 (expresion -> exp OP_REL exp .)
+    OP_SUMA         shift and go to state 93
+    OP_RESTA        shift and go to state 94
+
+
+state 112
+
+    (50) exp -> exp OP_SUMA termino .
+    (53) termino -> termino . OP_MULT factor
+    (54) termino -> termino . OP_DIV factor
+
+    OP_REL          reduce using rule 50 (exp -> exp OP_SUMA termino .)
+    OP_SUMA         reduce using rule 50 (exp -> exp OP_SUMA termino .)
+    OP_RESTA        reduce using rule 50 (exp -> exp OP_SUMA termino .)
+    SEMICOLON       reduce using rule 50 (exp -> exp OP_SUMA termino .)
+    DEL_PAR_CLOSE   reduce using rule 50 (exp -> exp OP_SUMA termino .)
+    COMMA           reduce using rule 50 (exp -> exp OP_SUMA termino .)
+    OP_MULT         shift and go to state 95
+    OP_DIV          shift and go to state 96
+
+
+state 113
+
+    (51) exp -> exp OP_RESTA termino .
+    (53) termino -> termino . OP_MULT factor
+    (54) termino -> termino . OP_DIV factor
+
+    OP_REL          reduce using rule 51 (exp -> exp OP_RESTA termino .)
+    OP_SUMA         reduce using rule 51 (exp -> exp OP_RESTA termino .)
+    OP_RESTA        reduce using rule 51 (exp -> exp OP_RESTA termino .)
+    SEMICOLON       reduce using rule 51 (exp -> exp OP_RESTA termino .)
+    DEL_PAR_CLOSE   reduce using rule 51 (exp -> exp OP_RESTA termino .)
+    COMMA           reduce using rule 51 (exp -> exp OP_RESTA termino .)
+    OP_MULT         shift and go to state 95
+    OP_DIV          shift and go to state 96
+
+
+state 114
+
+    (53) termino -> termino OP_MULT factor .
+
+    OP_MULT         reduce using rule 53 (termino -> termino OP_MULT factor .)
+    OP_DIV          reduce using rule 53 (termino -> termino OP_MULT factor .)
+    OP_REL          reduce using rule 53 (termino -> termino OP_MULT factor .)
+    OP_SUMA         reduce using rule 53 (termino -> termino OP_MULT factor .)
+    OP_RESTA        reduce using rule 53 (termino -> termino OP_MULT factor .)
+    SEMICOLON       reduce using rule 53 (termino -> termino OP_MULT factor .)
+    DEL_PAR_CLOSE   reduce using rule 53 (termino -> termino OP_MULT factor .)
+    COMMA           reduce using rule 53 (termino -> termino OP_MULT factor .)
+
+
+state 115
+
+    (54) termino -> termino OP_DIV factor .
+
+    OP_MULT         reduce using rule 54 (termino -> termino OP_DIV factor .)
+    OP_DIV          reduce using rule 54 (termino -> termino OP_DIV factor .)
+    OP_REL          reduce using rule 54 (termino -> termino OP_DIV factor .)
+    OP_SUMA         reduce using rule 54 (termino -> termino OP_DIV factor .)
+    OP_RESTA        reduce using rule 54 (termino -> termino OP_DIV factor .)
+    SEMICOLON       reduce using rule 54 (termino -> termino OP_DIV factor .)
+    DEL_PAR_CLOSE   reduce using rule 54 (termino -> termino OP_DIV factor .)
+    COMMA           reduce using rule 54 (termino -> termino OP_DIV factor .)
+
+
+state 116
+
+    (65) atomic_factor -> DEL_PAR_OPEN expresion . DEL_PAR_CLOSE
+
+    DEL_PAR_CLOSE   shift and go to state 124
+
+
+state 117
+
+    (55) factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .
+    (65) atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .
+
+  ! reduce/reduce conflict for OP_MULT resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for OP_DIV resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for OP_REL resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for OP_SUMA resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for OP_RESTA resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for DEL_PAR_CLOSE resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+  ! reduce/reduce conflict for COMMA resolved using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_MULT         reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_DIV          reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_REL          reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_SUMA         reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_RESTA        reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    SEMICOLON       reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    DEL_PAR_CLOSE   reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    COMMA           reduce using rule 55 (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+
+  ! OP_MULT         [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! OP_DIV          [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! OP_REL          [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! OP_SUMA         [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! OP_RESTA        [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! SEMICOLON       [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! DEL_PAR_CLOSE   [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+  ! COMMA           [ reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .) ]
+
+
+state 118
+
+    (11) function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt . body RBRACKET SEMICOLON
+    (26) body -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 32
+
+    body                           shift and go to state 125
+
+state 119
+
+    (68) argument_list -> argument_list COMMA expresion .
+
+    DEL_PAR_CLOSE   reduce using rule 68 (argument_list -> argument_list COMMA expresion .)
+    COMMA           reduce using rule 68 (argument_list -> argument_list COMMA expresion .)
+
+
+state 120
+
+    (41) print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .
+
+    RBRACE          reduce using rule 41 (print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .)
+    ID              reduce using rule 41 (print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .)
+    PRINT           reduce using rule 41 (print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .)
+    IF              reduce using rule 41 (print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .)
+    DO              reduce using rule 41 (print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .)
+    RETURN          reduce using rule 41 (print_stmt -> PRINT DEL_PAR_OPEN print_arguments DEL_PAR_CLOSE SEMICOLON .)
+
+
+state 121
+
+    (43) print_arguments -> print_arguments COMMA expresion .
+
+    DEL_PAR_CLOSE   reduce using rule 43 (print_arguments -> print_arguments COMMA expresion .)
+    COMMA           reduce using rule 43 (print_arguments -> print_arguments COMMA expresion .)
+
+
+state 122
+
+    (46) condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body . else_part SEMICOLON
+    (37) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body . SEMICOLON
+    (38) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body . ELSE body SEMICOLON
+    (47) else_part -> . ELSE body
+    (48) else_part -> . empty
+    (70) empty -> .
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+    SEMICOLON       shift and go to state 127
+    ELSE            shift and go to state 128
+
+  ! SEMICOLON       [ reduce using rule 70 (empty -> .) ]
+
+    else_part                      shift and go to state 126
+    empty                          shift and go to state 129
+
+state 123
+
+    (45) cycle -> DO body WHILE DEL_PAR_OPEN expresion . DEL_PAR_CLOSE SEMICOLON
+
+    DEL_PAR_CLOSE   shift and go to state 130
+
+
+state 124
+
+    (65) atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .
+
+    OP_MULT         reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_DIV          reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_REL          reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_SUMA         reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    OP_RESTA        reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    SEMICOLON       reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    DEL_PAR_CLOSE   reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+    COMMA           reduce using rule 65 (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE .)
+
+
+state 125
+
+    (11) function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body . RBRACKET SEMICOLON
+
+    RBRACKET        shift and go to state 131
+
+
+state 126
+
+    (46) condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part . SEMICOLON
+
+    SEMICOLON       shift and go to state 132
+
+
+state 127
+
+    (37) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .
+
+    RBRACE          reduce using rule 37 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .)
+    ID              reduce using rule 37 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .)
+    PRINT           reduce using rule 37 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .)
+    IF              reduce using rule 37 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .)
+    DO              reduce using rule 37 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .)
+    RETURN          reduce using rule 37 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body SEMICOLON .)
+
+
+state 128
+
+    (38) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE . body SEMICOLON
+    (47) else_part -> ELSE . body
+    (26) body -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 32
+
+    body                           shift and go to state 133
+
+state 129
+
+    (48) else_part -> empty .
+
+    SEMICOLON       reduce using rule 48 (else_part -> empty .)
+
+
+state 130
+
+    (45) cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE . SEMICOLON
+
+    SEMICOLON       shift and go to state 134
+
+
+state 131
+
+    (11) function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET . SEMICOLON
+
+    SEMICOLON       shift and go to state 135
+
+
+state 132
+
+    (46) condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .
+
+    RBRACE          reduce using rule 46 (condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .)
+    ID              reduce using rule 46 (condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .)
+    PRINT           reduce using rule 46 (condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .)
+    IF              reduce using rule 46 (condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .)
+    DO              reduce using rule 46 (condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .)
+    RETURN          reduce using rule 46 (condition -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON .)
+
+
+state 133
+
+    (38) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body . SEMICOLON
+    (47) else_part -> ELSE body .
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+    SEMICOLON       shift and go to state 136
+
+  ! SEMICOLON       [ reduce using rule 47 (else_part -> ELSE body .) ]
+
+
+state 134
+
+    (45) cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .
+
+    RBRACE          reduce using rule 45 (cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .)
+    ID              reduce using rule 45 (cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .)
+    PRINT           reduce using rule 45 (cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .)
+    IF              reduce using rule 45 (cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .)
+    DO              reduce using rule 45 (cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .)
+    RETURN          reduce using rule 45 (cycle -> DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON .)
+
+
+state 135
+
+    (11) function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .
+
+    VOID            reduce using rule 11 (function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .)
+    INT             reduce using rule 11 (function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .)
+    FLOAT           reduce using rule 11 (function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .)
+    STRING          reduce using rule 11 (function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .)
+    BOOL            reduce using rule 11 (function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .)
+    MAIN            reduce using rule 11 (function -> type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON .)
+
+
+state 136
+
+    (38) if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .
+
+    RBRACE          reduce using rule 38 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .)
+    ID              reduce using rule 38 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .)
+    PRINT           reduce using rule 38 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .)
+    IF              reduce using rule 38 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .)
+    DO              reduce using rule 38 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .)
+    RETURN          reduce using rule 38 (if_stmt -> IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body ELSE body SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 32 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 32 resolved as shift
+WARNING: shift/reduce conflict for IF in state 32 resolved as shift
+WARNING: shift/reduce conflict for DO in state 32 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 32 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 122 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 133 resolved as shift
+WARNING: reduce/reduce conflict in state 117 resolved using rule (factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE)
+WARNING: rejected rule (atomic_factor -> DEL_PAR_OPEN expresion DEL_PAR_CLOSE) in state 117
