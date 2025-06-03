@@ -41,7 +41,6 @@ def p_funcs_opt(p):
                  | empty"""
     p[0] = p[1]
 
-
 def p_function(p):
     """function : type ID DEL_PAR_OPEN param_list DEL_PAR_CLOSE LBRACKET vars_opt body RBRACKET SEMICOLON"""
     p[0] = ('function_definition', p[2], p[4], p[1], (p[7], p[8]))
@@ -66,6 +65,19 @@ def p_type(p):
             | STRING
             | BOOL"""
     p[0] = p[1]
+
+def p_atomic_factor(p):
+    """atomic_factor : ID
+                     | CONST_INT
+                     | CONST_FLOAT
+                     | CONST_STRING
+                     | TRUE
+                     | FALSE
+                     | DEL_PAR_OPEN expresion DEL_PAR_CLOSE"""
+    if len(p) == 4:
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
 
 def p_var_decl_list(p):
     """var_decl_list : var_decl
@@ -139,17 +151,14 @@ def p_assign(p):
     """assign : ID ASSIGN_OP expresion SEMICOLON"""
     p[0] = ('assign', p[1], p[3])
 
-# Fixed the cycle rule to use token names instead of lowercase tokens
 def p_cycle(p):
     """cycle : DO body WHILE DEL_PAR_OPEN expresion DEL_PAR_CLOSE SEMICOLON"""
     p[0] = ('do_while', p[2], p[5])
 
-# Fixed the condition rule to use token names and add missing else_part definition
 def p_condition(p):
     """condition : IF DEL_PAR_OPEN expresion DEL_PAR_CLOSE body else_part SEMICOLON"""
     p[0] = ('if', p[3], p[5], p[6])
 
-# Add the missing else_part rule
 def p_else_part(p):
     """else_part : ELSE body
                  | empty"""
@@ -175,20 +184,7 @@ def p_factor(p):
     if len(p) == 4:
         p[0] = ('factor_paren', p[2])
     elif len(p) == 3:
-        p[0] = ('factor_unary', p[1], p[2])
-    else:
-        p[0] = p[1]
-
-def p_atomic_factor(p):
-    """atomic_factor : ID
-                     | CONST_INT
-                     | CONST_FLOAT
-                     | CONST_STRING
-                     | TRUE
-                     | FALSE
-                     | DEL_PAR_OPEN expresion DEL_PAR_CLOSE"""
-    if len(p) == 4:
-        p[0] = ('factor_paren', p[2])
+        p[0] = ('factor', p[1], p[2])
     else:
         p[0] = ('factor', p[1])
 
@@ -228,7 +224,6 @@ def p_expresion(p):
     else:
         p[0] = ('expresion', p[2], p[1], p[3])
 
-
 parser = yacc.yacc()
 
 def analyze_line_by_line(input_text):
@@ -266,7 +261,7 @@ def parse_file(file_path):
     return result, errors_by_line, input_program
 
 def main():
-    file_path = os.path.join(os.path.dirname(__file__), "..", "Tests", "prueba5.ld")
+    file_path = os.path.join(os.path.dirname(__file__), "..", "..", "Tests", "prueba5.ld")
     result, errors_by_line, input_program = parse_file(file_path)
     print(result)
     print_line_analysis(input_program, errors_by_line)
