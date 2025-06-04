@@ -28,18 +28,6 @@ class FunctionDirectory:
     def set_start_quad(self, name, quad):
         if name in self.functions:
             self.functions[name]['start_quad'] = quad
-    
-    def print_directory(self):
-        print("\n" + "="*50)
-        print("DIRECTORIO DE FUNCIONES")
-        print("="*50)
-        for name, details in self.functions.items():
-            print(f"\nFunción: {name}")
-            print(f"Tipo de retorno: {details['return_type']}")
-            print(f"Parámetros: {details['params']}")
-            print(f"Cuádruplo inicial: {details['start_quad']}")
-            print("\nVariables locales:")
-            details['local_vars'].print_table()
 
 class SymbolTable:
     def __init__(self):
@@ -76,16 +64,6 @@ class SymbolTable:
             return self.scopes['global'][name]['type']
         return None
     
-    def set_value(self, name, value, scope=None):
-        target_scope = scope or self.current_scope
-        if target_scope in self.scopes and name in self.scopes[target_scope]:
-            self.scopes[target_scope][name]['value'] = value
-            return True
-        if target_scope != 'global' and name in self.scopes['global']:
-            self.scopes['global'][name]['value'] = value
-            return True
-        return False
-    
     def create_scope(self, scope_name):
         if scope_name not in self.scopes:
             self.scopes[scope_name] = {}
@@ -97,18 +75,6 @@ class SymbolTable:
             self.current_scope = scope_name
             return True
         return False
-    
-    def print_table(self):
-        print("\n" + "="*50)
-        print("TABLA DE SÍMBOLOS")
-        print("="*50)
-        for scope, symbols in self.scopes.items():
-            print(f"\nScope: {scope}")
-            print("-"*30)
-            print(f"{'Nombre':<15}{'Tipo':<15}")
-            print("-"*30)
-            for name, details in symbols.items():
-                print(f"{name:<15}{details['type']:<15}")
 
 class SemanticCube:
     def __init__(self):
@@ -167,17 +133,6 @@ class SemanticCube:
             return self.cube[key]
         else:
             return "error"
-    
-    def print_cube(self):
-        print("\n" + "="*60)
-        print("CUBO SEMÁNTICO")
-        print("="*60)
-        for key, result in self.cube.items():
-            left_type, operator, right_type = key
-            if right_type is None:
-                print(f"{operator} {left_type} -> {result}")
-            else:
-                print(f"{left_type} {operator} {right_type} -> {result}")
 
 class Quadruple:
     def __init__(self, operator, left_operand, right_operand, result):
@@ -357,33 +312,6 @@ class SemanticAnalyzer:
         
         return True
     
-    def generate_intermediate_code(self, output_file):
-        """Generate intermediate code file"""
-        with open(output_file, 'w') as f:
-            f.write("INTERMEDIATE CODE REPRESENTATION\n")
-            f.write("=" * 50 + "\n\n")
-            
-            f.write("FUNCTION DIRECTORY\n")
-            f.write("-" * 30 + "\n")
-            for name, details in self.function_directory.functions.items():
-                f.write(f"\nFunction: {name}\n")
-                f.write(f"Return Type: {details['return_type']}\n")
-                f.write(f"Parameters: {details['params']}\n")
-                f.write(f"Start Quadruple: {details['start_quad']}\n")
-                f.write("\nLocal Variables:\n")
-                for var_name, var_details in details['local_vars'].scopes.get(name, {}).items():
-                    f.write(f"  {var_name}: {var_details['type']}\n")
-            
-            f.write("\n" + "=" * 50 + "\n")
-            
-            f.write("\nQUADRUPLES\n")
-            f.write("-" * 30 + "\n")
-            for i, quad in enumerate(self.quadruples):
-                op1 = str(quad.left_operand) if quad.left_operand is not None else '_'
-                op2 = str(quad.right_operand) if quad.right_operand is not None else '_'
-                res = str(quad.result) if quad.result is not None else '_'
-                f.write(f"{i:<4} ({quad.operator:<8}, {op1:<15}, {op2:<15}, {res:<15})\n")
-    
     def get_operand_type(self, operand):
         if operand is None:
             return None
@@ -420,30 +348,6 @@ class SemanticAnalyzer:
             return 'bool'
 
         return None
- 
-    def print_quadruples(self):
-        print("\n" + "="*80)
-        print("LISTA DE CUÁDRUPLOS")
-        print("="*80)
-        print(f"{'num':<6}{'op':<15}{'argL':<15}{'argR':<15}{'res':<15}")
-        print("-"*80)
-        
-        for i, quad in enumerate(self.quadruples):
-            op = str(quad.operator) if quad.operator is not None else ''
-            arg_l = str(quad.left_operand) if quad.left_operand is not None else ''
-            arg_r = str(quad.right_operand) if quad.right_operand is not None else ''
-            res = str(quad.result) if quad.result is not None else ''
-            
-            print(f"{i+1:<6}{op:<15}{arg_l:<15}{arg_r:<15}{res:<15}")
-    
-    def print_stacks(self):
-        print("\n" + "="*60)
-        print("PILAS")
-        print("="*60)
-        print(f"Pila de operandos: {self.operand_stack}")
-        print(f"Pila de tipos: {self.type_stack}")
-        print(f"Pila de operadores: {self.operator_stack}")
-        print(f"Pila de saltos: {self.jump_stack}")
     
     def analyze_program(self, ast):
         if ast[0] == 'programa':
@@ -798,20 +702,6 @@ def analyze_code(file_path):
     
     return result, None
 
-def print_ast(node, level=0):
-    indent = "  " * level
-    if isinstance(node, tuple):
-        print(f"{indent}Node type: {node[0]}")
-        for i, child in enumerate(node[1:], 1):
-            print(f"{indent}Child {i}:")
-            print_ast(child, level + 1)
-    elif isinstance(node, list):
-        print(f"{indent}List of {len(node)} items:")
-        for item in node:
-            print_ast(item, level + 1)
-    else:
-        print(f"{indent}Value: {node}")
-
 if __name__ == "__main__":
-    file_path = os.path.join(os.path.dirname(__file__), "..", "Tests", "pruebaClase.ld")
+    file_path = os.path.join(os.path.dirname(__file__), "..", "..", "Tests", "prueba6.ld")
     analyze_code(file_path)
