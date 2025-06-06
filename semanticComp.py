@@ -635,11 +635,14 @@ class SemanticAnalyzer:
         return True
 
     def process_do_while(self, statement):
-        start_index = self.quad_counter + 1
-
+        # Mark the beginning of the loop body
+        loop_start = self.quad_counter + 1
+        
+        # Process the loop body first
         if not self.process_body(statement[1][1]):
             return False
-
+        
+        # Now process the condition
         if not self.process_expression(statement[2]):
             return False
 
@@ -650,7 +653,10 @@ class SemanticAnalyzer:
             print(f"Error semántico: La condición debe ser de tipo bool, se encontró {condition_type}")
             return False
 
-        self.add_quadruple('GOTOV', condition_result, None, start_index)
+        # For do-while: if condition is true, jump back to loop start
+        # If condition is false, continue to next instruction (exit loop)
+        self.add_quadruple('GOTOF', condition_result, None, self.quad_counter + 2)
+        self.add_quadruple('GOTO', None, None, loop_start)
 
         return True
 
